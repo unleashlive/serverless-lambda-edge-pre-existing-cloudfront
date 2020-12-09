@@ -36,7 +36,7 @@ class ServerlessLambdaEdgePreExistingCloudFront {
                     : event.preExistingCloudFront.distributionId
                 )
                 this.serverless.cli.consoleLog(
-                  `${functionArn} is associating to ${resolvedDistributionId} CloudFront Distribution. waiting for deployed status.`
+                  `${functionArn} (Event: ${event.preExistingCloudFront.eventType}, pathPattern: ${event.preExistingCloudFront.pathPattern}) is associating to ${resolvedDistributionId} CloudFront Distribution. waiting for deployed status.`
                 )
 
                 let retryCount = 5
@@ -83,7 +83,8 @@ class ServerlessLambdaEdgePreExistingCloudFront {
                 }
 
                 await updateDistribution()
-                this.serverless.cli.consoleLog(`${functionArn} has been successfully associated to ${resolvedDistributionId} CloudFront Distribution.`)
+
+                this.serverless.cli.consoleLog(`Event has been successfully associated to ${resolvedDistributionId} CloudFront Distribution.`)
               }
             })
           }, Promise.resolve())
